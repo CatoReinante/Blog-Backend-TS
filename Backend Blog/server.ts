@@ -1,18 +1,23 @@
-import express, { Application } from "express";
+import express from "express";
+import cors from "cors";
 import dotenv from "dotenv";
-import routes from "./routes";
-import { sequelize } from "./models/index";
+import { sequelize } from "./models";
+import api from "./routes";
 
 dotenv.config();
+const app = express();
 
-const app: Application = express();
-const PORT = process.env.PORT || 3000;
-
+app.use(cors({ origin: "http://localhost:5173" }));
 app.use(express.json());
-app.use("/api", routes);
 
-sequelize.sync().then(() => {
-  app.listen(PORT, () => {
-    console.log(`Servidor corriendo en puerto ${PORT}`);
-  });
-});
+app.use("/api", api);
+
+app.get("/health", (_req, res) => res.json({ ok: true }));
+
+const PORT = process.env.PORT || 3001;
+
+(async () => {
+  await sequelize.authenticate();
+  console.log("DB conectada");
+  app.listen(PORT, () => console.log(`API on http://localhost:${PORT}`));
+})();

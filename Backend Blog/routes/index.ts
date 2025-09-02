@@ -1,12 +1,10 @@
-import exampleRoutes from "./exampleRoutes";
 import postRoutes from "./PostRoutes";
 import userRoutes from "./userRoutes";
 import { Router } from "express";
 
 const router = Router();
 
-router.use(exampleRoutes);
-router.use(postRoutes);
-router.use(userRoutes);
+router.use("/posts", postRoutes);
+router.use("/users", userRoutes);
 
 export default router;

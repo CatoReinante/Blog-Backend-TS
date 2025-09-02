@@ -1,10 +1,16 @@
-import { Sequelize } from "sequelize";
-import { UserSeeder } from "./userSeeder";
-import { PostSeeder } from "./PostSeeder";
+import { UserSeeder } from "./userSeeder.js";
+import { PostSeeder } from "./postSeeder.js";
 
 const runAllSeeders = async () => {
-  await UserSeeder();
-  await PostSeeder();
+  try {
+    await UserSeeder();
+    await PostSeeder();
+    console.log("🌱 Seeders ejecutados con éxito");
+    process.exit();
+  } catch (error) {
+    console.error("❌ Error al ejecutar seeders:", error);
+    process.exit(1);
+  }
 };
 
 runAllSeeders();
