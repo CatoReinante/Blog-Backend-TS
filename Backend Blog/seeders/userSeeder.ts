@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { User } from "../models/User.js";
+import { User } from "../models/User";
 import bcrypt from "bcryptjs";
 
 export const UserSeeder = async () => {

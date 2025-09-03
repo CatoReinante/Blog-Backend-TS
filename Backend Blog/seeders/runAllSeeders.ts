@@ -1,8 +1,10 @@
-import { UserSeeder } from "./userSeeder.js";
-import { PostSeeder } from "./postSeeder.js";
+import { sequelize } from "../models";
+import { PostSeeder } from "./postSeeder";
+import { UserSeeder } from "./userSeeder";
 
 const runAllSeeders = async () => {
   try {
+    await sequelize.sync(); // <-- Esto crea las tablas si no existen
     await UserSeeder();
     await PostSeeder();
     console.log("🌱 Seeders ejecutados con éxito");

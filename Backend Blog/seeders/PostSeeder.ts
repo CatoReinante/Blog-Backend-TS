@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { Post } from "../models/Post.js";
+import { Post } from "../models/Post";
 
 export const PostSeeder = async () => {
   const posts = [];

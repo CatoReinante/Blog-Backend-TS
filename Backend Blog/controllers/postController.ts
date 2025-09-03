@@ -20,6 +20,27 @@ export const postController = {
       res.status(500).json({ error: "Error al obtener posts" });
     }
   },
+
+  getOnePost: async (req: Request, res: Response) => {
+    try {
+      const { id } = req.params;
+      const post = await Post.findByPk(id, {
+        include: [
+          {
+            model: User,
+            as: "author",
+            attributes: ["id", "username", "email"],
+          },
+        ],
+      });
+      if (!post) {
+        return res.status(404).json({ error: "Post no encontrado" });
+      }
+      res.json(post);
+    } catch (error) {
+      res.status(500).json({ error: "Error al obtener post" });
+    }
+  },
   createPost: async (req: Request, res: Response) => {
     try {
       const { content, userId } = req.body;
